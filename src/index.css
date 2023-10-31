@@ -1,3 +1,10 @@
+:root {
+  --main-gray: #707070;
+  --main-orange: #ed7432;
+  --main-green: #98c355;
+  --main-dark-green: #3a6452;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +17,9 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+  font-family: 'Jalnan';
+  src: url('../public/fonts/Jalnan.ttf') format('truetype');
 }
