@@ -3,6 +3,12 @@ module.exports = {
     commonjs: true, // module, exports, require 허용
   },
 
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+
   // recommended 설정을 기반으로 한다.
   extends: [
     'eslint:recommended',
