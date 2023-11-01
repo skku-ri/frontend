@@ -1,9 +1,10 @@
-import { Button } from '../components';
+import { Button, Logo } from '../components';
 
 export function Playground() {
   return (
     <div>
       <h1>Playground</h1>
+      <Logo />
       <h2>Button</h2>
       <Button style='primary' onClick={() => console.log('clicked')}>
         Click me

@@ -1,0 +1,23 @@
+.logo {
+  font-size: 70px;
+}
+
+.logo:hover {
+  cursor: grab;
+}
+
+.skku {
+  color: var(--main-dark-green);
+}
+
+.bar {
+  color: var(--main-green);
+}
+
+.r {
+  color: var(--main-orange);
+}
+
+.i {
+  color: var(--main-dark-green);
+}
