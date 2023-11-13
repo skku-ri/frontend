@@ -1,0 +1,27 @@
+.button {
+  /* Text features */
+  font-family: 'Jalnan';
+  font-size: 38px;
+  text-align: center;
+  letter-spacing: 1.5px;
+
+  /* Border features */
+  border: 1px solid var(--main-gray);
+  border-radius: 36px;
+
+  /* Box model */
+  padding: 10px 20px;
+
+  /* Other features */
+  cursor: pointer;
+}
+
+.button.primary {
+  color: white;
+  background-color: var(--main-orange);
+}
+
+.button.secondary {
+  color: var(--main-gray);
+  background-color: white;
+}
