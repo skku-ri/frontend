@@ -7,10 +7,11 @@
 
   /* Border features */
   border: 1px solid var(--main-gray);
-  border-radius: 36px;
+  border-radius: calc(1em + 10px);
 
   /* Box model */
   padding: 10px 20px;
+  width: 100%;
 
   /* Other features */
   cursor: pointer;
