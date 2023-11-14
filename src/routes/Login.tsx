@@ -10,7 +10,7 @@ import {
   TextInput,
 } from '../components';
 
-export function Home() {
+export function Login() {
   return (
     <>
       <Logo />
