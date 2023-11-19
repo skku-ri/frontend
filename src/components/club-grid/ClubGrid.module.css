@@ -1,0 +1,10 @@
+.cards {
+  display: flex;
+  margin: 1em;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 1em;
+  cursor: pointer;
+}

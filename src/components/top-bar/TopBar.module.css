@@ -1,0 +1,61 @@
+.topBar {
+  width: 100vw;
+  padding: 20px 0;
+}
+
+.topBarHome {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  float: left;
+}
+
+.topBarImage {
+  width: 60px;
+  height: 60px;
+  padding: 30px;
+}
+
+.topBarLogo {
+  font-size: 30px;
+}
+
+.topBarCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 120px;
+  float: right;
+  padding-right: 30px;
+  position: relative;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.topBarMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  padding: 30px;
+  position: absolute;
+  z-index: 100;
+  top: 140px;
+  right: 30px;
+}
+
+.topBarMenuElement {
+  cursor: pointer;
+}
+
+.dimmer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}

@@ -1,0 +1,30 @@
+.menuItem > div {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0.5em;
+  margin-bottom: 2em;
+}
+
+.menuItem > div > h3 {
+  margin: 0;
+}
+
+.menuItem > div:hover {
+  cursor: pointer;
+}
+
+.menuItem > div > div {
+  position: absolute;
+  background-color: #c2ddc6;
+  width: 7em;
+  height: 1.2em;
+  z-index: -1;
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+}
+
+.menuItem > div:hover > div {
+  background-color: #ddd7c2;
+}

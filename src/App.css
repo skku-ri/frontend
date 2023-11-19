@@ -12,3 +12,27 @@
   padding: 3rem 2rem;
   text-align: start;
 }
+
+.App-home {
+  display: flex;
+  width: calc(100% - 4rem);
+  justify-content: flex-start;
+  padding: 2rem;
+}
+
+.App-nav {
+  width: 15em;
+}
+
+.App-content {
+  width: calc(100% - 15vw);
+  border-left: solid 1px var(--main-gray);
+}
+
+.App-category-header {
+  text-transform: uppercase;
+  width: 10em;
+  border-bottom: solid 1px var(--main-gray);
+  margin: 1em;
+  text-align: start;
+}
