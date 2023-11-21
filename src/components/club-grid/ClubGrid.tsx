@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Club } from '../../models/club';
+import { Club } from '../../models/club/club';
 import { Card } from '../card/Card';
 
 import styles from './ClubGrid.module.css';

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import '../App.css';
+import { useAppDispatch } from '../app/hooks';
 import {
   Button,
   Card,
@@ -11,9 +12,11 @@ import {
   SizedBox,
   TextInput,
 } from '../components';
+import { login } from '../models/user/userSlice';
 
 export function Login() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   return (
     <Column align='center'>
@@ -34,7 +37,13 @@ export function Login() {
           </Button>
         </Padding>
         <Padding>
-          <Button style='secondary' onClick={() => navigate('/')}>
+          <Button
+            style='secondary'
+            onClick={() => {
+              dispatch(login());
+              navigate('/');
+            }}
+          >
             로그인
           </Button>
         </Padding>

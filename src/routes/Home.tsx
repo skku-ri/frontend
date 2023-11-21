@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import '../App.css';
 import { ClubGrid, MenuItem, Row, TextInput } from '../components';
-import { Club } from '../models/club';
+import { Club } from '../models/club/club';
 
 export function Home() {
   const [selectedCategory, setSelectedCategory] = useState('');
