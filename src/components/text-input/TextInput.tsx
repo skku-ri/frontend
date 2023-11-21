@@ -1,5 +1,6 @@
 interface TextInputProps {
   type?: 'plain' | 'password';
+  label?: string;
   width?: number | string;
   onChange?: (value: string) => void;
   onEnterKeyDown?: (key: string) => void;
@@ -16,6 +17,7 @@ export function TextInput(props: TextInputProps) {
     >
       <input
         type={props.type}
+        placeholder={props.label}
         style={{
           border: 'none',
           borderBottom: '1px solid black',

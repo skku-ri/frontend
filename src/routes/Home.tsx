@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 
 import '../App.css';
-import { ClubGrid, MenuItem } from '../components';
+import { ClubGrid, MenuItem, Row, TextInput } from '../components';
 import { Club } from '../utils/club';
 
 export function Home() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categories, setCategories] = useState<string[]>([]);
   const [clubs, setClubs] = useState<Club[]>([]);
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     fetch('/data/clubs.json')
@@ -19,13 +20,17 @@ export function Home() {
           new Set(data.map((e) => e.main_category).filter((e) => !!e)),
         ).sort((a, b) => a.localeCompare(b));
         setCategories(_categories);
-        setSelectedCategory(_categories[0]);
       });
   }, []);
 
   return (
     <div className='App-home'>
       <nav className='App-nav'>
+        <MenuItem
+          key='search'
+          label='검색'
+          onClick={() => setSelectedCategory('')}
+        />
         {categories.map((e) => (
           <MenuItem
             key={e}
@@ -35,10 +40,26 @@ export function Home() {
         ))}
       </nav>
       <section className='App-content'>
-        <h1 className='App-category-header'>{selectedCategory}</h1>
-        <ClubGrid
-          clubs={clubs.filter((e) => e.main_category === selectedCategory)}
-        />
+        <h1 className='App-category-header'>{selectedCategory || '검색'}</h1>
+        {selectedCategory ? (
+          <ClubGrid
+            clubs={clubs.filter((e) => e.main_category === selectedCategory)}
+          />
+        ) : (
+          <>
+            <Row align='start'>
+              <TextInput
+                label='검색어를 입력하세요'
+                onChange={(e) => setFilter(e)}
+              />
+            </Row>
+            {filter && (
+              <ClubGrid
+                clubs={clubs.filter((club) => club.name.includes(filter))}
+              />
+            )}
+          </>
+        )}
       </section>
     </div>
   );
