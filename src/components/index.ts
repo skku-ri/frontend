@@ -1,10 +1,9 @@
-import { Column } from '../column/Column';
-
 import { Button } from './button/Button';
 import { Card } from './card/Card';
 import { ChatCard } from './chat-card/ChatCard';
 import { ChatRoom } from './chat-room/ChatRoom';
 import { ClubGrid } from './club-grid/ClubGrid';
+import { Column } from './column/Column';
 import { Counter } from './counter/Counter';
 import { Divider } from './divider/Divider';
 import { Grid } from './grid/Grid';

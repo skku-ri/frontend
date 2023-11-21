@@ -1,5 +1,5 @@
-import { Column } from '../../column/Column';
 import { Card } from '../card/Card';
+import { Column } from '../column/Column';
 import { Spacer } from '../spacer/Spacer';
 
 export function NameCard(props: {
