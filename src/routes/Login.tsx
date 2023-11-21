@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom';
+
 import '../App.css';
 import {
   Button,
   Card,
+  Column,
   Grid,
   Padding,
   Row,
@@ -10,12 +13,13 @@ import {
 } from '../components';
 
 export function Login() {
+  const navigate = useNavigate();
+
   return (
-    <>
+    <Column align='center'>
+      <SizedBox height={80} />
       <Card>
         <Grid columns={['14em', 'auto']} className='App-login-grid'>
-          <h3>FULL NAME</h3>
-          <TextInput />
           <h3>ID</h3>
           <TextInput />
           <h3>PASSWORD</h3>
@@ -30,11 +34,11 @@ export function Login() {
           </Button>
         </Padding>
         <Padding>
-          <Button style='secondary' onClick={() => console.log('clicked')}>
+          <Button style='secondary' onClick={() => navigate('/')}>
             로그인
           </Button>
         </Padding>
       </Row>
-    </>
+    </Column>
   );
 }

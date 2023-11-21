@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import '../App.css';
 import { ClubGrid, MenuItem } from '../components';
-import { Club } from '../utils/club';
+import { Club } from '../models/club';
 
 const myClub = [
   '시선',

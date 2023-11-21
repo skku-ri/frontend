@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { Button, Column, NameCard, Row, SizedBox } from '../components';
-import { Club } from '../utils/club';
+import { Club } from '../models/club';
 
 const members = [
   {

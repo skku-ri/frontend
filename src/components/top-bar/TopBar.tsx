@@ -80,6 +80,18 @@ export function TopBar(props: { className?: string }) {
               <h2>Message</h2>
             </Card>
           </div>
+          <SizedBox height={10} />
+
+          <div
+            onClick={() => {
+              setShowMenu(false);
+              navigate('login');
+            }}
+          >
+            <Card padding={[10, 20]} className={styles.topBarMenuElement}>
+              <h2>Log out</h2>
+            </Card>
+          </div>
         </Card>
       </div>
       <div
