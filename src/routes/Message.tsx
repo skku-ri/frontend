@@ -1,4 +1,4 @@
-import { ChatRoom, PersonCard } from '../components';
+import { ChatCard, ChatRoom } from '../components';
 
 const people = [
   {
@@ -33,7 +33,7 @@ export function Message() {
     <div className='App-home'>
       <nav className='App-nav' style={{ width: '350px' }}>
         {people.map((person) => (
-          <PersonCard
+          <ChatCard
             key={person.id}
             name={person.name}
             imgSrc={person.imgSrc}

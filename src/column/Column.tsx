@@ -1,4 +1,4 @@
-export function Row(props: {
+export function Column(props: {
   children?: React.ReactNode;
   align?: 'start' | 'center' | 'end';
   style?: React.CSSProperties;
@@ -7,7 +7,7 @@ export function Row(props: {
     <div
       style={{
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         alignItems: props.align ?? 'stretch',
         justifyContent: 'center',
         ...props.style,

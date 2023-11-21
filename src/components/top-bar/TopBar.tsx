@@ -37,6 +37,7 @@ export function TopBar(props: { className?: string }) {
         >
           <div
             onClick={() => {
+              navigate('mycard');
               setShowMenu(false);
             }}
           >
