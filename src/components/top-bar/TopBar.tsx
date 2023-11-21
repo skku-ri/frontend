@@ -14,9 +14,9 @@ export function TopBar(props: { className?: string }) {
   return (
     <header className={styles.topBar + ' ' + (props.className ?? '')}>
       <a
-        href='/'
         className={styles.topBarHome}
         style={{ textDecoration: 'none' }}
+        onClick={() => navigate('/')}
       >
         <img className={styles.topBarImage} src='/images/skku_s.png' />
         <Logo className={styles.topBarLogo} />
@@ -72,6 +72,7 @@ export function TopBar(props: { className?: string }) {
           <div
             onClick={() => {
               setShowMenu(false);
+              navigate('message');
             }}
           >
             <Card padding={[10, 20]} className={styles.topBarMenuElement}>

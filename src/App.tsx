@@ -4,6 +4,7 @@ import './App.css';
 import { Page } from './components';
 import { Home } from './routes/Home';
 import { Login } from './routes/Login';
+import { Message } from './routes/Message';
 import { MyClub } from './routes/MyClub';
 import { Playground } from './routes/Playground';
 
@@ -17,6 +18,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/playground' element={<Playground />} />
             <Route path='/myclub' element={<MyClub />} />
+            <Route path='/message' element={<Message />} />
             <Route path='*' element={<h1>Not Found</h1>} />
           </Routes>
         </Page>

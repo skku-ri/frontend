@@ -3,11 +3,11 @@
 }
 
 .logo:hover {
-  cursor: grab;
+  cursor: pointer;
 }
 
 .skku {
-  color: var(--main-dark-green);
+  color: var(--main-green-dark);
 }
 
 .bar {

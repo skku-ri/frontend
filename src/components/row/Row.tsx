@@ -1,5 +1,17 @@
-import styles from './Row.module.css';
-
-export function Row(props: { children?: React.ReactNode }) {
-  return <div className={styles.row}>{props.children}</div>;
+export function Row(props: {
+  children?: React.ReactNode;
+  align?: 'start' | 'center' | 'end';
+}) {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: props.align ?? 'stretch',
+        justifyContent: 'center',
+      }}
+    >
+      {props.children}
+    </div>
+  );
 }

@@ -3,7 +3,9 @@
   --main-gray-light: #dddddd;
   --main-orange: #ed7432;
   --main-green: #98c355;
-  --main-dark-green: #3a6452;
+  --main-green-light: #c2ddc6;
+  --main-green-lighter: #d5edd8e6;
+  --main-green-dark: #3a6452;
 }
 
 body {

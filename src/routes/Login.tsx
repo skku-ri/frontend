@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   Grid,
-  Logo,
   Padding,
   Row,
   SizedBox,
@@ -13,8 +12,6 @@ import {
 export function Login() {
   return (
     <>
-      <Logo />
-      <SizedBox height={40} />
       <Card>
         <Grid columns={['14em', 'auto']} className='App-login-grid'>
           <h3>FULL NAME</h3>
