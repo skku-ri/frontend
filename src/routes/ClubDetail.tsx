@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { useAppSelector } from '../app/hooks';
 import { Button, Column, NameCard, Row, SizedBox } from '../components';
-import { Club } from '../models/club/club';
+import { selectClub } from '../models/club/clubSlice';
 
 const members = [
   {
@@ -23,16 +23,9 @@ const members = [
 ];
 
 export function ClubDetail() {
-  const [club, setClub] = useState<Club | undefined>(undefined);
   const { clubName } = useParams();
 
-  useEffect(() => {
-    fetch('/data/clubs.json')
-      .then((data) => data.json())
-      .then((data: Club[]) => {
-        setClub(data.find((e) => e.name === clubName));
-      });
-  }, []);
+  const club = clubName ? useAppSelector(selectClub(clubName)) : undefined;
 
   return club ? (
     <Column>

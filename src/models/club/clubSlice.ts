@@ -84,7 +84,7 @@ export const selectSubCategories = (state: RootState) =>
 
 export const selectClubs = (state: RootState) => state.club.clubs;
 
-export const selectClub = (state: RootState, clubName: string) =>
+export const selectClub = (clubName: string) => (state: RootState) =>
   state.club.clubs.find((club) => club.name === clubName);
 
 export default clubSlice.reducer;
