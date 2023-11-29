@@ -1,26 +1,27 @@
 import { useEffect, useState } from 'react';
 
 import '../App.css';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { ClubGrid, MenuItem, Row, TextInput } from '../components';
-import { Club } from '../models/club/club';
+import {
+  fetchClubsAsync,
+  fetchMainCategoriesAsync,
+  selectClubs,
+  selectMainCategories,
+} from '../models/club/clubSlice';
 
 export function Home() {
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [categories, setCategories] = useState<string[]>([]);
-  const [clubs, setClubs] = useState<Club[]>([]);
   const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    fetch('/data/clubs.json')
-      .then((data) => data.json())
-      .then((data: Club[]) => {
-        setClubs(data.sort((a, b) => a.name.localeCompare(b.name)));
+  const dispatch = useAppDispatch();
 
-        const _categories = Array.from(
-          new Set(data.map((e) => e.main_category).filter((e) => !!e)),
-        ).sort((a, b) => a.localeCompare(b));
-        setCategories(_categories);
-      });
+  const categories = useAppSelector(selectMainCategories);
+  const clubs = useAppSelector(selectClubs);
+
+  useEffect(() => {
+    dispatch(fetchMainCategoriesAsync());
+    dispatch(fetchClubsAsync());
   }, []);
 
   return (
@@ -43,7 +44,7 @@ export function Home() {
         <h1 className='App-category-header'>{selectedCategory || '검색'}</h1>
         {selectedCategory ? (
           <ClubGrid
-            clubs={clubs.filter((e) => e.main_category === selectedCategory)}
+            clubs={clubs.filter((e) => e.mainCategory === selectedCategory)}
           />
         ) : (
           <>

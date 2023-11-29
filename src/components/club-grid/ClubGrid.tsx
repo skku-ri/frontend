@@ -36,7 +36,7 @@ export function ClubGrid(props: { clubs: Club[] }) {
         >
           <Card padding={0} width={200} height={180}>
             <img
-              src={club.logo_img_path}
+              src={club.logoImagePath}
               alt={'The logo of ' + club.name}
               onError={(e) => {
                 if (e.currentTarget.src !== defaultLogo) {

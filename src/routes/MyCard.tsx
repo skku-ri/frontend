@@ -48,7 +48,7 @@ export function MyCard() {
           department='소프트웨어학과'
           studentId='2020123456'
           imgSrc={
-            clubs.find((e) => e.name === selectedClub)?.logo_img_path || ''
+            clubs.find((e) => e.name === selectedClub)?.logoImagePath || ''
           }
           size='large'
         />

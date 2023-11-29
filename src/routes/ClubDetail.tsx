@@ -45,7 +45,7 @@ export function ClubDetail() {
           align='center'
         >
           <img
-            src={club.logo_img_path}
+            src={club.logoImagePath}
             alt={`${club.name}'s Logo`}
             style={{
               width: '150px',
@@ -81,7 +81,7 @@ export function ClubDetail() {
               name={member.name}
               department={member.department}
               studentId={member.studentId}
-              imgSrc={club?.logo_img_path || ''}
+              imgSrc={club?.logoImagePath || ''}
               size='small'
             />
           </div>
