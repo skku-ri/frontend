@@ -9,6 +9,7 @@ import { Message } from './routes/Message';
 import { MyCard } from './routes/MyCard';
 import { MyClub } from './routes/MyClub';
 import { Playground } from './routes/Playground';
+import { Register } from './routes/Register';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/home' element={<Home />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
             <Route path='/playground' element={<Playground />} />
             <Route path='/mycard' element={<MyCard />} />
             <Route path='/myclub' element={<MyClub />} />

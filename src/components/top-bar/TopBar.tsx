@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { isLogined, logout } from '../../models/user/userSlice';
+import { logout, selectIsLogined } from '../../models/user/userSlice';
 import { Card } from '../card/Card';
 import { Logo } from '../logo/Logo';
 import { SizedBox } from '../sized-box/SizedBox';
@@ -13,7 +13,7 @@ export function TopBar(props: { className?: string }) {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const userIsLogined = useAppSelector(isLogined);
+  const userIsLogined = useAppSelector(selectIsLogined);
 
   return (
     <header className={styles.topBar + ' ' + (props.className ?? '')}>

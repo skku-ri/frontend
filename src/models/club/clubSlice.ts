@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { createAppSlice } from '../../app/hooks';
 import { AppStatus, RootState } from '../../app/store';
 
 import { Club } from './club';
@@ -33,45 +34,26 @@ export const fetchClubsAsync = createAsyncThunk('club/fetchClubs', async () =>
   (await fetchClubs()).sort((a, b) => a.name.localeCompare(b.name)),
 );
 
-const clubSlice = createSlice({
+const clubSlice = createAppSlice({
   name: 'club',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  asyncThunkReducers: (builder) => {
     builder
-      .addCase(fetchMainCategoriesAsync.pending, (state) => {
-        state.status = 'loading';
+      .addCase(fetchMainCategoriesAsync, {
+        idle: (state, action) => {
+          state.mainCategories = action.payload;
+        },
       })
-      .addCase(fetchMainCategoriesAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.mainCategories = action.payload;
+      .addCase(fetchSubCategoriesAsync, {
+        idle: (state, action) => {
+          state.subCategories = action.payload;
+        },
       })
-      .addCase(fetchMainCategoriesAsync.rejected, (state) => {
-        state.status = 'failed';
-      });
-
-    builder
-      .addCase(fetchSubCategoriesAsync.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchSubCategoriesAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.subCategories = action.payload;
-      })
-      .addCase(fetchSubCategoriesAsync.rejected, (state) => {
-        state.status = 'failed';
-      });
-
-    builder
-      .addCase(fetchClubsAsync.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(fetchClubsAsync.fulfilled, (state, action) => {
-        state.status = 'idle';
-        state.clubs = action.payload;
-      })
-      .addCase(fetchClubsAsync.rejected, (state) => {
-        state.status = 'failed';
+      .addCase(fetchClubsAsync, {
+        idle: (state, action) => {
+          state.clubs = action.payload;
+        },
       });
   },
 });
