@@ -25,8 +25,13 @@ export const registerAsync = createAsyncThunk(
 
 export const loginAsync = createAsyncThunk(
   'user/login',
-  async (request: { email: string; password: string }) =>
-    await userAPI.login(request.email, request.password),
+  async (request: { email: string; password: string }) => {
+    const accessToken = await userAPI.login(request.email, request.password);
+    console.log(accessToken);
+    const user = await userAPI.getUserInfo(accessToken);
+    console.log(user);
+    return [accessToken, user] as const;
+  },
 );
 
 export const userSlice = createAppSlice({
@@ -41,7 +46,9 @@ export const userSlice = createAppSlice({
     builder
       .addCase(loginAsync, {
         idle: (state, action) => {
-          state.accessToken = action.payload;
+          const [accessToken, user] = action.payload;
+          state.accessToken = accessToken;
+          state.user = user;
         },
       })
       .addCase(registerAsync);

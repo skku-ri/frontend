@@ -39,11 +39,33 @@ async function login(email: string, password: string): Promise<string> {
   }>('/auth/token', {
     method: 'POST',
     data: {
-      email,
+      username: email,
       password,
     },
   });
   return response.access_token;
 }
 
-export default { register, login };
+async function getUserInfo(accessToken: string): Promise<User> {
+  const response = await API.fetch<{
+    email: string;
+    name: string;
+    department: string;
+    student_number: string;
+    phone_num: string;
+  }>('/auth/user', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return {
+    email: response.email,
+    name: response.name,
+    department: response.department,
+    studentId: response.student_number,
+    phoneNumber: response.phone_num,
+  };
+}
+
+export default { register, login, getUserInfo };
