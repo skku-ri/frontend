@@ -1,56 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import './App.css';
+import { Page } from './components';
+import { ClubDetail } from './routes/ClubDetail';
+import { Home } from './routes/Home';
+import { Login } from './routes/Login';
+import { Message } from './routes/Message';
+import { MyCard } from './routes/MyCard';
+import { MyClub } from './routes/MyClub';
+import { Playground } from './routes/Playground';
+import { Register } from './routes/Register';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
+    <div className='App'>
+      <BrowserRouter>
+        <Page>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/home' element={<Home />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/playground' element={<Playground />} />
+            <Route path='/mycard' element={<MyCard />} />
+            <Route path='/myclub' element={<MyClub />} />
+            <Route path='/club/:clubName' element={<ClubDetail />} />
+            <Route path='/message' element={<Message />} />
+            <Route path='*' element={<h1>Not Found</h1>} />
+          </Routes>
+        </Page>
+      </BrowserRouter>
     </div>
   );
 }
