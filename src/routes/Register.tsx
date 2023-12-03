@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import '../App.css';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppDispatch } from '../app/hooks';
 import {
   Button,
   Card,
@@ -13,16 +13,11 @@ import {
   TextInput,
 } from '../components';
 import { RegisterRequest } from '../models/user/userAPI';
-import {
-  registerAsync,
-  selectUserActionStatus,
-} from '../models/user/userSlice';
+import { registerAsync } from '../models/user/userSlice';
 
 export function Register() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const registerStatus = useAppSelector(selectUserActionStatus);
 
   const request: RegisterRequest = {
     email: '',
@@ -77,10 +72,11 @@ export function Register() {
           <Button
             style='secondary'
             onClick={() => {
-              dispatch(registerAsync(request));
-              if (registerStatus === 'idle') {
-                navigate('/');
-              }
+              dispatch(registerAsync(request)).then((result) => {
+                if (result.payload) {
+                  navigate('/');
+                }
+              });
             }}
           >
             회원가입

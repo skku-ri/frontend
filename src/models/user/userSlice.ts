@@ -20,17 +20,28 @@ const initialState: UserState = {
 
 export const registerAsync = createAsyncThunk(
   'user/register',
-  async (request: RegisterRequest) => await userAPI.register(request),
+  async (request: RegisterRequest) => {
+    try {
+      await userAPI.register(request);
+      const accessToken = await userAPI.login(request.email, request.password);
+      const user = await userAPI.getUserInfo(accessToken);
+      return user;
+    } catch (e) {
+      return null;
+    }
+  },
 );
 
 export const loginAsync = createAsyncThunk(
   'user/login',
   async (request: { email: string; password: string }) => {
-    const accessToken = await userAPI.login(request.email, request.password);
-    console.log(accessToken);
-    const user = await userAPI.getUserInfo(accessToken);
-    console.log(user);
-    return [accessToken, user] as const;
+    try {
+      const accessToken = await userAPI.login(request.email, request.password);
+      const user = await userAPI.getUserInfo(accessToken);
+      return [accessToken, user] as const;
+    } catch (e) {
+      return null;
+    }
   },
 );
 
@@ -46,12 +57,20 @@ export const userSlice = createAppSlice({
     builder
       .addCase(loginAsync, {
         idle: (state, action) => {
-          const [accessToken, user] = action.payload;
-          state.accessToken = accessToken;
-          state.user = user;
+          if (action.payload) {
+            const [accessToken, user] = action.payload;
+            state.accessToken = accessToken;
+            state.user = user;
+          }
         },
       })
-      .addCase(registerAsync);
+      .addCase(registerAsync, {
+        idle: (state, action) => {
+          if (action.payload) {
+            state.user = action.payload;
+          }
+        },
+      });
   },
 });
 
@@ -60,5 +79,7 @@ export const { logout } = userSlice.actions;
 export const selectIsLogined = (state: RootState) => state.user.user !== null;
 
 export const selectUserActionStatus = (state: RootState) => state.user.status;
+
+export const selectUser = (state: RootState) => state.user.user;
 
 export default userSlice.reducer;

@@ -17,7 +17,7 @@ async function register(request: RegisterRequest): Promise<User> {
     data: {
       email: request.email,
       password: request.password,
-      name: request.name,
+      nickname: request.name,
       department: request.department,
       student_number: request.studentId,
       phone_num: request.phoneNumber,
@@ -38,10 +38,10 @@ async function login(email: string, password: string): Promise<string> {
     token_type: string;
   }>('/auth/token', {
     method: 'POST',
-    data: {
-      username: email,
-      password,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
+    body: `grant_type=password&username=${email}&password=${password}`,
   });
   return response.access_token;
 }
@@ -49,19 +49,17 @@ async function login(email: string, password: string): Promise<string> {
 async function getUserInfo(accessToken: string): Promise<User> {
   const response = await API.fetch<{
     email: string;
-    name: string;
+    nickname: string;
     department: string;
     student_number: string;
     phone_num: string;
-  }>('/auth/user', {
+  }>('/user/profile', {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+    accessToken,
   });
   return {
     email: response.email,
-    name: response.name,
+    name: response.nickname,
     department: response.department,
     studentId: response.student_number,
     phoneNumber: response.phone_num,

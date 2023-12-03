@@ -31,7 +31,6 @@ export function TextInput(props: TextInputProps) {
         }}
         onChange={(e) => props.onChange?.(e.currentTarget.value)}
         onKeyDown={(e) => {
-          console.log('keydown', e.key, e.currentTarget.value);
           if (e.key === 'Enter') {
             props.onEnterKeyDown?.(e.currentTarget.value);
             e.currentTarget.value = '';

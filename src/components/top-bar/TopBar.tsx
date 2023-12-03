@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { logout, selectIsLogined } from '../../models/user/userSlice';
+import { logout, selectUser } from '../../models/user/userSlice';
 import { Card } from '../card/Card';
 import { Logo } from '../logo/Logo';
 import { SizedBox } from '../sized-box/SizedBox';
@@ -13,7 +13,8 @@ export function TopBar(props: { className?: string }) {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const userIsLogined = useAppSelector(selectIsLogined);
+
+  const user = useAppSelector(selectUser);
 
   return (
     <header className={styles.topBar + ' ' + (props.className ?? '')}>
@@ -26,13 +27,19 @@ export function TopBar(props: { className?: string }) {
         <Logo className={styles.topBarLogo} />
       </a>
       <div>
-        {userIsLogined && (
+        {user ? (
           <div
             className={styles.topBarCard}
             onClick={() => setShowMenu(!showMenu)}
           >
             <Card padding={[0, 20]}>
-              <h1>홍길동</h1>
+              <h1>{user.name}</h1>
+            </Card>
+          </div>
+        ) : (
+          <div className={styles.topBarCard} onClick={() => navigate('/login')}>
+            <Card padding={[0, 20]}>
+              <h1>로그인</h1>
             </Card>
           </div>
         )}

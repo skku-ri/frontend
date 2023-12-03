@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import '../App.css';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppDispatch } from '../app/hooks';
 import {
   Button,
   Card,
@@ -12,13 +12,11 @@ import {
   SizedBox,
   TextInput,
 } from '../components';
-import { loginAsync, selectUserActionStatus } from '../models/user/userSlice';
+import { loginAsync } from '../models/user/userSlice';
 
 export function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const loginStatus = useAppSelector(selectUserActionStatus);
 
   let email = '';
   let password = '';
@@ -54,10 +52,11 @@ export function Login() {
           <Button
             style='secondary'
             onClick={() => {
-              dispatch(loginAsync({ email, password }));
-              if (loginStatus === 'idle') {
-                navigate('/');
-              }
+              dispatch(loginAsync({ email, password })).then((result) => {
+                if (result.payload) {
+                  navigate('/');
+                }
+              });
             }}
           >
             로그인

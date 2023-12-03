@@ -13,13 +13,19 @@ export class API {
 
   static async fetch<T>(
     url: string,
-    options?: RequestInit & { data?: object },
+    options?: RequestInit & { data?: object; accessToken?: string },
   ) {
     if (options?.data) {
       options.body = JSON.stringify(options.data);
       options.headers = {
         ...options.headers,
         'Content-Type': 'application/json',
+      };
+    }
+    if (options?.accessToken) {
+      options.headers = {
+        ...options.headers,
+        Authorization: `Bearer ${options.accessToken}`,
       };
     }
     const response = await fetch(`${this.API_URL}${url}`, options);

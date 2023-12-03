@@ -13,10 +13,11 @@ import type { AppDispatch, AppStatus, RootState } from './store';
 type AsyncThunkReducerBuilderCaseArguments<
   State extends { status: AppStatus },
   Action,
+  RejectedAction,
 > = {
   loading?: (state: Draft<State>) => void;
   idle?: (state: Draft<State>, action: Action) => void;
-  failed?: (state: Draft<State>) => void;
+  failed?: (state: Draft<State>, action: RejectedAction) => void;
 };
 
 class AsyncThunkReducerBuilder<State extends { status: AppStatus }> {
@@ -26,7 +27,8 @@ class AsyncThunkReducerBuilder<State extends { status: AppStatus }> {
     asyncThunk: AsyncThunk<Returned, ThunkArg, any>,
     caseArguments?: AsyncThunkReducerBuilderCaseArguments<
       State,
-      ReturnType<typeof asyncThunk.fulfilled>
+      ReturnType<typeof asyncThunk.fulfilled>,
+      ReturnType<typeof asyncThunk.rejected>
     >,
   ) {
     this.builder
@@ -36,11 +38,13 @@ class AsyncThunkReducerBuilder<State extends { status: AppStatus }> {
       })
       .addCase(asyncThunk.fulfilled, (state, action) => {
         state.status = 'idle';
+        console.log(asyncThunk.typePrefix, state.status, action.payload);
         caseArguments?.idle && caseArguments?.idle(state, action);
       })
-      .addCase(asyncThunk.rejected, (state) => {
+      .addCase(asyncThunk.rejected, (state, action) => {
         state.status = 'failed';
-        caseArguments?.failed && caseArguments?.failed(state);
+        console.log(asyncThunk.typePrefix, state.status, action.error);
+        caseArguments?.failed && caseArguments?.failed(state, action);
       });
     return this;
   }
