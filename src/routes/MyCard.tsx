@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+import { useAppSelector } from '../app/hooks';
 import {
   Column,
   Divider,
@@ -9,6 +11,8 @@ import {
   SizedBox,
 } from '../components';
 import { Club } from '../models/club/club';
+import { selectClub } from '../models/club/clubSlice';
+import { selectUser } from '../models/user/userSlice';
 
 const myClub = [
   '시선',
@@ -18,54 +22,63 @@ const myClub = [
   '소리사랑',
 ];
 
+const defaultLogo = '/images/skku_s.png';
+
 export function MyCard() {
-  const [clubs, setClubs] = useState<Club[]>([]);
-  const [selectedClub, setSelectedClub] = useState('시선');
+  const [selectedClub, setSelectedClub] = useState(myClub[0]);
+
+  const navigate = useNavigate();
+
+  const myClubs = myClub
+    .map((club) => useAppSelector(selectClub(club)))
+    .filter((club): club is Club => club !== undefined);
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
-    fetch('/data/clubs.json')
-      .then((data) => data.json())
-      .then((data: Club[]) => {
-        setClubs(data.sort((a, b) => a.name.localeCompare(b.name)));
-      });
-  }, []);
+    if (!user) {
+      navigate('/login');
+    }
+  }, [user]);
 
   return (
-    <Row style={{ padding: '0 30px' }}>
-      <Column>
-        {myClub.map((e) => (
-          <MenuItem
-            key={e}
-            label={e.toUpperCase()}
-            onClick={() => setSelectedClub(e)}
+    user && (
+      <Row style={{ padding: '0 30px' }}>
+        <Column>
+          {myClub.map((e) => (
+            <MenuItem
+              key={e}
+              label={e.toUpperCase()}
+              onClick={() => setSelectedClub(e)}
+            />
+          ))}
+        </Column>
+        <Column align='start'>
+          <h1>{selectedClub}</h1>
+          <NameCard
+            name={user.name}
+            department={user.department}
+            studentId={user.studentId}
+            imgSrc={
+              myClubs.find((e) => e.name === selectedClub)?.logoImagePath ||
+              defaultLogo
+            }
+            size='large'
           />
-        ))}
-      </Column>
-      <Column align='start'>
-        <h1>{selectedClub}</h1>
-        <NameCard
-          name='홍길동'
-          department='소프트웨어학과'
-          studentId='2020123456'
-          imgSrc={
-            clubs.find((e) => e.name === selectedClub)?.logoImagePath || ''
-          }
-          size='large'
-        />
-      </Column>
-      <SizedBox width={50} />
-      <Divider vertical length={650} />
-      <SizedBox width={50} />
-      <Column align='start'>
-        <h1>내 명함</h1>
-        <NameCard
-          name='홍길동'
-          department='소프트웨어학과'
-          studentId='2020123456'
-          imgSrc='/images/hong.png'
-          size='large'
-        />
-      </Column>
-    </Row>
+        </Column>
+        <SizedBox width={50} />
+        <Divider vertical length={650} />
+        <SizedBox width={50} />
+        <Column align='start'>
+          <h1>내 명함</h1>
+          <NameCard
+            name={user.name}
+            department={user.department}
+            studentId={user.studentId}
+            imgSrc='/images/hong.png'
+            size='large'
+          />
+        </Column>
+      </Row>
+    )
   );
 }

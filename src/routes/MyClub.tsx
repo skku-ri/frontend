@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-
 import '../App.css';
+import { useAppSelector } from '../app/hooks';
 import { ClubGrid, MenuItem } from '../components';
 import { Club } from '../models/club/club';
+import { selectClub } from '../models/club/clubSlice';
 
 const myClub = [
   '시선',
@@ -13,19 +13,9 @@ const myClub = [
 ];
 
 export function MyClub() {
-  const [clubs, setClubs] = useState<Club[]>([]);
-
-  useEffect(() => {
-    fetch('/data/clubs.json')
-      .then((data) => data.json())
-      .then((data: Club[]) => {
-        setClubs(
-          data
-            .filter((e) => myClub.includes(e.name))
-            .sort((a, b) => a.name.localeCompare(b.name)),
-        );
-      });
-  }, []);
+  const myClubs = myClub
+    .map((club) => useAppSelector(selectClub(club)))
+    .filter((club): club is Club => club !== undefined);
 
   return (
     <div className='App-home'>
@@ -33,7 +23,7 @@ export function MyClub() {
         <MenuItem label='My Club' />
       </nav>
       <section className='App-content'>
-        <ClubGrid clubs={clubs} />
+        <ClubGrid clubs={myClubs} />
       </section>
     </div>
   );
